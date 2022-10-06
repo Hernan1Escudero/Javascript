@@ -5,10 +5,11 @@ let allNotes = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
 //consulta result funciona como contenedor de la respuesta y como variable de control para hacer validaciones conta allNotes
 let consultaResult = [];
 
-// truth es un tambien valor de control para contar la cantidad de notas repetidas ya que una escala no repite sus notas
-//en un futuro este programa tendrá mas validaciones
+// truth es un tambien valor de control para contar la cantidad de notas no repetidas
 let truth = 0;
-
+//lie valida cuantas notas o valores repetidos que hay 
+let lie = 0;
+debugger;
 //saludo inicial para poder saber si ejecutar los pasos o cancelar el total
 let welcome= ()=> {
     let confirmation =confirm("Presione un boton 'aceptar' para proseguir, o 'cancelar' para no hacer  nada");
@@ -48,7 +49,7 @@ let notes=( )=>{
   if(allNotes.indexOf(consultaResult[i]) > -1){
     //console.log("contiene la nota")
      truth +1
-    };
+    }
      //INTENTO FALLIDO
     // if(allNotes.includes(consultaResult[i])){
     //   alert("No se pueden ingresar letras repetidas")
@@ -58,10 +59,10 @@ let notes=( )=>{
 
    //oh  
   
-    if (allNotes.indexOf(consultaResult[i])){
+    else if (allNotes.indexOf(consultaResult[i]) == -1){
 
       //console.log("no contiene la nota")
-      truth-1;
+      lie +1;
 
       
     } 
@@ -71,6 +72,7 @@ let notes=( )=>{
 
  //Lo que quiero con esta funcion final es que, las funciones solo se ejecuten cuando yo las llame
 let notesMessage=()=>{
+  
   let notScale ="no ha ingresado una escala";
   let isScale = "lo ingresado coincide con una escala musical";
    
@@ -87,7 +89,7 @@ let notesMessage=()=>{
  countRepetitions()
   //Al final se hacen las validaciones en base a una variable que me dira si se ingresa o no una escala en base a la cantidad de valores 
  //Una escala musical minimamente consta de 5 notas, en caso de ingresar menos de 4(por ejemplo se ingresaron numeros o palabras,pero las letras fueron menores a 5 la respuesta va a ser no hay escala)
-if (truth<5){
+if (truth<5 && lie>=5){
    console.log(notScale);
    alert(notScale);
 }
