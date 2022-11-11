@@ -1,0 +1,50 @@
+@import "maps";
+
+
+.card {
+  position: relative;
+  top: 0;
+  transition: 0.3s;
+
+  &:hover {
+    top: -4px;
+  }
+}
+
+
+
+.nonSelected{
+  background-color: map-get($redes , nonSelected );
+  &:hover {
+    background-color: map-get( $redes,selected )!important;
+    color: white !important
+  }
+}
+
+
+
+.btn {
+  @extend .nonSelected ; 
+  color: rgb(255, 255, 255);
+  transition: box-shadow 0.5s;
+  margin-top:1% ;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &:hover  {
+    box-shadow: 0px 0px 10px rgb(99, 168, 189);
+    
+    
+    
+  }
+}
+
+
+
+@media (max-width:401px) {
+
+  .btn{
+    text-indent: -9000px; text-transform: capitalize;
+  }
+}

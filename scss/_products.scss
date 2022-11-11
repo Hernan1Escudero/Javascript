@@ -1,0 +1,101 @@
+   @import "maps";
+    .productsGrid{
+       
+         height: auto;
+    display: grid;
+     grid-template-rows: 1fr auto auto ;
+     grid-template-columns: auto auto auto;
+    
+    grid-template-areas: 
+    "one two three "
+    "four five six "
+    ;
+    gap: 0;
+    align-content: center;
+    justify-items: center;
+    justify-content: center;
+}
+
+.null{
+    margin: 0;
+    padding: 0;
+    
+}
+
+.card{
+    box-shadow: 1px 1px grey, 0em 0 .5em gray;
+}
+
+.One{
+    grid-area:one ;
+    @extend .null
+}
+
+.cardTwo{
+    grid-area:two ;
+    @extend .null;
+}
+.cardThree{
+    grid-area:three ;
+    @extend .null;
+}
+.cardFour{
+    grid-area:four ;
+    @extend .null;
+}
+.cardFive{ 
+    grid-area:five;
+    @extend .null;
+
+ 
+}
+   .cardSix{
+        grid-area:six ;
+       @extend .null;
+    }
+
+
+    @media (max-width: 1000px){
+        .productsGrid{
+       
+            height: auto;
+       display: grid;
+        grid-template-rows: 1fr auto ;
+        grid-template-columns: auto auto ;
+       
+       grid-template-areas: 
+       "one two  "
+       "three four"
+       " five six "
+       ;
+       gap: 0;
+       align-content: center;
+       justify-items: center;
+       justify-content: center;
+        }
+    
+    }
+
+    @media (max-width: 681px){
+        .productsGrid{
+       
+            height: auto;
+       display: grid;
+        grid-template-rows: 1fr  ;
+        grid-template-columns: auto  ;
+       
+       grid-template-areas: 
+       "one  "
+       "two"
+       "three" 
+       "four"
+       " five"
+       " six "
+       ;
+       gap: 0;
+       align-content: center;
+       justify-items: center;
+       justify-content: center;
+        }
+    
+    }
