@@ -93,7 +93,7 @@ comprobar.addEventListener("click",(e)=>{
 });
 
 let coca =document.getElementById("flexSwitchCheckChecked");
-coca.setAttribute('value','unchecked')
+coca.setAttribute('value','checked')
 
 
 coca.addEventListener("click",()=>{
