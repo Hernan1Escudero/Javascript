@@ -49,7 +49,7 @@ let notesMessage=()=>{
   
   let notScale ="no ha ingresado una escala";
   let isScale = "lo ingresado coincide con una escala musical";
-   
+  
   
   // en caso de confirmar se ejecutan las funciones ya explicadas
   
@@ -62,22 +62,24 @@ let notesMessage=()=>{
  let alertBarDanger = alert.innerHTML = '<div class="alert alert-danger" role="alert">'+notScale+'</div>';
  if(consultaResult.length== 0){
   alert.innerHTML = alertBarDanger
-  truth = 0;
-   lie = 0;
+  
  }
+ /* else if( lie !=0){
+  console.log(notScale);
+  alert.innerHTML = alertBarDanger
+
+ } */
 
  else if (truth<5 ){
    console.log(notScale);
    alert.innerHTML = alertBarDanger
-   truth = 0;
-   lie = 0;
+   
 }
-else if (truth >=5){
+else if (truth >=5 ){
   console.log( isScale);
   
 alert.innerHTML = '<div class="alert alert-primary" role="alert">'+isScale+'</div>'; 
-truth = 0;
-lie = 0;
+
 }   
 
 };
@@ -86,31 +88,75 @@ let comprobar = document.getElementById('btn');
 comprobar.addEventListener("click",(e)=>{
 
  e.preventDefault()
- 
  notesMessage();
-
 
 });
 
-let coca =document.getElementById("flexSwitchCheckChecked");
-coca.setAttribute('value','checked')
 
 
-coca.addEventListener("click",()=>{
-  if (coca.value == 'unchecked'){
-    document.body.classList.add("darkMode")
-    coca.removeAttribute('value','unchecked')
-    coca.setAttribute('value','checked')}
-    else{
+let element = document.getElementById("flexSwitchCheckChecked");
 
-      document.body.classList.remove("darkMode")
-      coca.removeAttribute('value','checked')
-    coca.setAttribute('value','unchecked')}
-    }
+let  myFunction =()=> {
+  
+  document.body.classList.toggle("darkMode");
+  if( document.body.classList.contains("darkMode") == true){
+     element.setAttribute("checked","")
+    localStorage.setItem("LightMode","Dark")
+  }
+  if( document.body.classList.contains("darkMode") == false){
+    element.removeAttribute("checked","")
+    localStorage.setItem("LightMode","Light")
+  }
+}
 
-
-
+element.addEventListener("click", myFunction
 )
+
+if( localStorage.getItem("LightMode") == "Dark"){
+  document.body.classList.add("darkMode")
+  element.setAttribute("checked","")
+  
+}
+if( localStorage.getItem("LightMode") == "Light"){
+  document.body.classList.remove("darkMode")
+  element.removeAttribute("checked","")
+}
+
+
+let toStorage = [];
+
+class escala{
+  constructor(){
+  this.nombre = document.getElementById("saveScale").value;
+  this.escala =consultaResult.toString();
+   }
+ }
+
+
+
+
+
+ savebtn.addEventListener("click",(e)=>{
+  e.preventDefault()
+  let  escalo= new escala( )
+  toStorage.push(escalo)
+  let tojson = JSON.stringify(toStorage)
+  let saveinStorage= sessionStorage.setItem("escalas",tojson)
+
+ })
+ 
+
+
+
+
+ 
+ 
+
+
+
+
+
+
 
 
 

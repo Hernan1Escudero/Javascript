@@ -1,0 +1,67 @@
+main {
+    grid-area: main;
+    animation-name: animationSection;
+    animation-duration: 2.5s;
+    animation-iteration-count: 1;
+  
+  section {
+      box-sizing: border-box;
+      
+    }
+  
+    img {
+      width: 300px;
+      height: 300px;
+      max-width: 290px;
+      max-height: 290px;
+
+      object-fit: cover;
+  
+      .imageChicken {
+        object-fit: cover;
+      }
+    }
+  
+    p {
+      text-align: justify;
+      text-justify: inter-word;
+    }
+  
+    .half {
+      height: 1px;
+      background-color: $generic;
+      border: none;
+      width: 85%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: $minP;
+      margin-bottom: $minP;
+    }
+  
+  }
+
+  .withBackground{
+    background-image: url(../img/hd-wallpaper-g94b6152dc_1920.jpg);
+    background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+  }
+
+.secondBackground{
+
+  
+  background-color: rgba(0,0,0, 0.6); /* Black w/opacity/see-through */
+   
+  }
+
+
+
+  @media (max-width:900px) {
+    
+    .flexOnQuery{
+      display: flex;
+      flex-direction: column;
+    }
+  }
+ 

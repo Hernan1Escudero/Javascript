@@ -15,39 +15,18 @@ footer {
   color: white;
   clear: both; }
 
-form {
-  animation-name: animationSection;
-  animation-duration: 0.5s;
-  animation-iteration-count: 1; }
 
-.form-control:focus {
-  background-color: grey;
-  color: white; }
+
 
 nav {
   grid-area: nav;
-  margin-bottom: 0%;
+  margin: 0%;
   background-color: #141414;
   color: white; }
 
-.navContainer {
-  position: sticky;
-  z-index: 1;
-  top: 0;
-  bottom: 0; }
 
-.NavLabel {
-  background-color: aliceblue; }
 
-.navbar-brand {
-  color: black;
-  margin-left: 10%; }
 
-.container {
-  margin-top: 10px; }
-
-.menuicon {
-  color: black; }
 
 @media (max-width: 1000px) {
   ul {
@@ -85,36 +64,15 @@ main {
     margin-top: 1%;
     margin-bottom: 1%; }
 
-.withBackground {
-  background-image: url(../img/hd-wallpaper-g94b6152dc_1920.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover; }
 
-.secondBackground {
-  background-color: rgba(0, 0, 0, 0.6);
-  /* Black w/opacity/see-through */ }
 
 @media (max-width: 900px) {
   .flexOnQuery {
     display: flex;
     flex-direction: column; } }
 
-.productsGrid {
-  height: auto;
-  display: grid;
-  grid-template-rows: 1fr auto auto;
-  grid-template-columns: auto auto auto;
-  grid-template-areas: "one two three "
- "four five six ";
-  gap: 0;
-  align-content: center;
-  justify-items: center;
-  justify-content: center; }
 
-.null, .One, .cardTwo, .cardThree, .cardFour, .cardFive, .cardSix {
-  margin: 0;
-  padding: 0; }
+
 
 .card {
   box-shadow: 1px 1px grey, 0em 0 .5em gray; }
@@ -220,6 +178,6 @@ body {
 
  .darkMode{
  
-  background: rgba(0,0,0, 0.6);
+  background: rgb(15, 15, 15);
  color:#fff;
  }
