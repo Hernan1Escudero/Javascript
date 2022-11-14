@@ -131,19 +131,33 @@ class escala{
   this.escala =consultaResult.toString();
    }
  }
-
-
-
-
-
+ let getTextarea = document.getElementById("savedScales")
+ let saveinStorage="";
+  
+  
  savebtn.addEventListener("click",(e)=>{
   e.preventDefault()
   let  escalo= new escala( )
   toStorage.push(escalo)
   let tojson = JSON.stringify(toStorage)
   let saveinStorage= sessionStorage.setItem("escalas",tojson)
-
+ 
+let getUploadedScales = JSON.parse(sessionStorage.escalas)
+ let remember =getTextarea.value;
+  for( i=0;i< getUploadedScales.length; i++){
+    
+    
+     getTextarea.value = remember+( `\n${ getUploadedScales[i].nombre} = ${getUploadedScales[i].escala.replace(/,/g, "-")}`)
+    
+  
+    }
+ 
  })
+
+ 
+ 
+ 
+
  
 
 
