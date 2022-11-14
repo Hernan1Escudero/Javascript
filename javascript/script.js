@@ -42,24 +42,26 @@ obtenerDatosIngreso.addEventListener("change",(e)=>{
 }
 
 };
-let alert = document.getElementById("forAlert");
- let alertBarDanger = alert.innerHTML = '<div class="alert alert-danger" role="alert">'+notScale+'</div>';
 
+let notScale ="no ha ingresado una escala";
+let isScale = "lo ingresado coincide con una escala musical";
+// creamos una alerta
+
+// alerta para cuandono hay escala
+ let alert = document.getElementById("forAlert");
+ let alertBarDanger ="";
  //Lo que quiero con esta funcion final es que, las funciones solo se ejecuten cuando yo las llame
 let notesMessage=()=>{
-  
-  let notScale ="no ha ingresado una escala";
-  let isScale = "lo ingresado coincide con una escala musical";
- 
+
  countRepetitions()
   //Al final se hacen las validaciones en base a una variable que me dira si se ingresa o no una escala en base a la cantidad de valores 
  //Una escala musical minimamente consta de 5 notas, en caso de ingresar menos de 4(por ejemplo se ingresaron numeros o palabras,pero las letras fueron menores a 5 la respuesta va a ser no hay escala)
- 
+ let alertBarDanger = alert.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+notScale+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+
  if(consultaResult.length== 0){
   alert.innerHTML = alertBarDanger
   
  }
-
 
  else if (truth<5 ){
    console.log(notScale);
@@ -70,7 +72,7 @@ else if (truth >=5 ){
   console.log( isScale);
   
   // agregamos el banner 
-alert.innerHTML = '<div class="alert id="alerta" alert-primary" role="alert">'+isScale+'</div><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true" style="font-size:20px">×</span></button>'; 
+alert.innerHTML = '<div class="alert alert-primary alert-dismissible fade show" role="alert">'+isScale+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 
 }   
 
@@ -159,6 +161,12 @@ let getUploadedScales = JSON.parse(sessionStorage.escalas)
     }
  
  })
+
+ let close= ()=>{
+  alert.innerHTML =""
+     
+ }
+ alert.addEventListener("click",close)
 
  
  
