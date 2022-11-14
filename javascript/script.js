@@ -56,7 +56,7 @@ let notesMessage=()=>{
  countRepetitions()
   //Al final se hacen las validaciones en base a una variable que me dira si se ingresa o no una escala en base a la cantidad de valores 
  //Una escala musical minimamente consta de 5 notas, en caso de ingresar menos de 4(por ejemplo se ingresaron numeros o palabras,pero las letras fueron menores a 5 la respuesta va a ser no hay escala)
- let alertBarDanger = alert.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+notScale+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+ let alertBarDanger = alert.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+notScale+'<button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
 
  if(consultaResult.length== 0){
   alert.innerHTML = alertBarDanger
@@ -72,7 +72,7 @@ else if (truth >=5 ){
   console.log( isScale);
   
   // agregamos el banner 
-alert.innerHTML = '<div class="alert alert-primary alert-dismissible fade show" role="alert">'+isScale+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+alert.innerHTML = '<div class="alert alert-primary alert-dismissible fade show" role="alert">'+isScale+'<button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 
 }   
 
@@ -161,7 +161,7 @@ let getUploadedScales = JSON.parse(sessionStorage.escalas)
     }
  
  })
-
+// funcion para cerrar la alerta
  let close= ()=>{
   alert.innerHTML =""
      
