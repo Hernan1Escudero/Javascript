@@ -20,8 +20,14 @@
   <body class="bodyAsContainer darkMode">
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
-    <script  src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+   
+      
+    
+      
+      
+    <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous">
+      
+    </script>
 
  <!-- ----------------------------- NAV menu---------------- -->
 
@@ -65,7 +71,7 @@
 
 
         <div class="form-group">
-          <label for="exampleInputEmail1" id="">"Ingrese el nombre de su escala para guardarla"</label>
+          <label for="exampleInputEmail1" id="">"Ingrese el nombre de su escala si desea guardarla"</label>
           <input
             type="text"
             class="form-control"
@@ -80,12 +86,14 @@
           <label for="" id="">Escalas guardadas</label>
           <textarea name="textarea" rows="10" cols="68" id="savedScales"></textarea>
           <button type="submit" class="btn" id="">Guardar</button>
+          <button id="carreta">sonar</button>
         </div>
         
         
 
         
       </form>
+      
     </main>
  <!-- ----------------------------- Footer---------------- -->
 
@@ -99,6 +107,9 @@
   </div>
   </div>
 </footer>
-<script src="javascript\script.js"></script>
+<script type="module" src="javascript\script.js">
+
+
+</script>
   </body>
 </html>

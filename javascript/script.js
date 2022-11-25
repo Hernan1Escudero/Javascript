@@ -1,30 +1,45 @@
+import  'https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js'
 
+
+const btn = document.getElementById("carreta");
+btn.addEventListener("click",  (e) => {
+  e.preventDefault();
+  Tone.start();
+  const synth = new Tone.Synth().toDestination();
+  let now = Tone.now();
+  let last = (trueScales.length)-1
+  let getScale =trueScales[last]
+  debugger;
+  for(let i=0; i<= getScale.length;i++)
+  {
+    debugger;
+    synth.triggerAttackRelease( getScale[i], "8n", now+i)
+    
+  }
+
+});
 // variable en la que se basa el algoritmo: comprobar mediante comparacion con este array si lo que se ingresa es una escala
 let allNotes = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
-
+let allNotes4 = ["C4","D4","E4","F4","G4","A4","B4"];
 //consulta result funciona como contenedor de la respuesta y como variable de control para hacer validaciones conta allNotes
 let consultaResult = "";
-
+let trueScales =[];
 // truth es un tambien valor de control para contar la cantidad de notas no repetidas
 let truth = 0;
 //lie valida cuantas notas o valores repetidos que hay 
 let lie = 0;
-
+let count=1;
 
 // Obtiene las notas en cifrado americano, osea en letras mayusculas(toUpperCase) y las mete dentro del array de comprobacion 
 
 let obtenerDatosIngreso = document.getElementById('exampleInputEmail1');
-obtenerDatosIngreso.addEventListener("change",(e)=>{
 
-  e.preventDefault()
-  let notes = document.getElementById("exampleInputEmail1")
-  consultaResult = notes.value.toUpperCase().split('');
-
- });
 
  // count , hace la cuenta de cuantos valores del array de notas(counsultaResult) esta dentro de
  //la escala cromatica(allNotes) , la cual contiene todas las notas posibles en el sistema occidental
  let countRepetitions =()=>{  
+  
+  
     for(let i=0; i<= (allNotes.length)-1;i++)
     {
    if(allNotes.includes(consultaResult[i])){
@@ -51,8 +66,13 @@ let isScale = "lo ingresado coincide con una escala musical";
  let alert = document.getElementById("forAlert");
  let alertBarDanger ="";
  //Lo que quiero con esta funcion final es que, las funciones solo se ejecuten cuando yo las llame
-let notesMessage=()=>{
+let notesMessage=()=>
+{
+  
 
+  let notes = document.getElementById("exampleInputEmail1")
+  consultaResult = notes.value.toUpperCase().split('');
+  
  countRepetitions()
   //Al final se hacen las validaciones en base a una variable que me dira si se ingresa o no una escala en base a la cantidad de valores 
  //Una escala musical minimamente consta de 5 notas, en caso de ingresar menos de 4(por ejemplo se ingresaron numeros o palabras,pero las letras fueron menores a 5 la respuesta va a ser no hay escala)
@@ -60,25 +80,40 @@ let notesMessage=()=>{
 
  if(consultaResult.length== 0){
   alert.innerHTML = alertBarDanger
-  
+  consultaResult ="";
+  truth = 0
+  lie = 0
  }
 
  else if (truth<5 ){
    console.log(notScale);
    alert.innerHTML = alertBarDanger
-   
+   consultaResult ="";
+   truth = 0
+  lie = 0
 }
 else if (truth >=5 ){
-  console.log( isScale);
   
   // agregamos el banner 
 alert.innerHTML = '<div class="alert alert-primary alert-dismissible fade show" role="alert">'+isScale+'<button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
-
+let container =[]
+let pusher = consultaResult.map(function(verd){
+  let valueRange =verd+"4";
+  
+  container.push(valueRange);
+    
+})
+trueScales.push(container)
+  consultaResult = "";
+  truth = 0
+  lie = 0
+  
+  
 }   
 
 };
 
-// Mandamos a buscar el boton y ejecutamos las funciones  para que nose responda si es escala
+// Mandamos a buscar el boton y ejecutamos las funciones  para que nos responda si es escala
 let comprobar = document.getElementById('btn');
 comprobar.addEventListener("click",(e)=>{
 
@@ -168,35 +203,8 @@ let getUploadedScales = JSON.parse(sessionStorage.escalas)
  }
  alert.addEventListener("click",close)
 
- 
- 
- 
-
- 
 
 
 
 
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//butt.addEventListener("click",saludo)
-
-///////////////////////////////////////////////
-
-// localStorage.setItem("cliente","pepe")
 
