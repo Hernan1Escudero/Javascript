@@ -1,23 +1,7 @@
 import  'https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js'
 
 
-const btn = document.getElementById("carreta");
-btn.addEventListener("click",  (e) => {
-  e.preventDefault();
-  Tone.start();
-  const synth = new Tone.Synth().toDestination();
-  let now = Tone.now();
-  let last = (trueScales.length)-1
-  let getScale =trueScales[last]
-  debugger;
-  for(let i=0; i<= getScale.length;i++)
-  {
-    debugger;
-    synth.triggerAttackRelease( getScale[i], "8n", now+i)
-    
-  }
 
-});
 // variable en la que se basa el algoritmo: comprobar mediante comparacion con este array si lo que se ingresa es una escala
 let allNotes = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
 let allNotes4 = ["C4","D4","E4","F4","G4","A4","B4"];
@@ -62,9 +46,17 @@ let notScale ="no ha ingresado una escala";
 let isScale = "lo ingresado coincide con una escala musical";
 // creamos una alerta
 
-// alerta para cuandono hay escala
+// alerta para cuando no hay escala
  let alert = document.getElementById("forAlert");
  let alertBarDanger ="";
+
+ // funcion para cerrar la alerta
+ let close= ()=>{
+  alert.innerHTML =""
+     
+ }
+ alert.addEventListener("click",close)
+
  //Lo que quiero con esta funcion final es que, las funciones solo se ejecuten cuando yo las llame
 let notesMessage=()=>
 {
@@ -80,6 +72,8 @@ let notesMessage=()=>
 
  if(consultaResult.length== 0){
   alert.innerHTML = alertBarDanger
+
+
   consultaResult ="";
   truth = 0
   lie = 0
@@ -97,7 +91,7 @@ else if (truth >=5 ){
   // agregamos el banner 
 alert.innerHTML = '<div class="alert alert-primary alert-dismissible fade show" role="alert">'+isScale+'<button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 let container =[]
-let pusher = consultaResult.map(function(verd){
+consultaResult.map(function(verd){
   let valueRange =verd+"4";
   
   container.push(valueRange);
@@ -111,7 +105,11 @@ trueScales.push(container)
   
 }   
 
+setTimeout(close,6000)
+
 };
+
+
 
 // Mandamos a buscar el boton y ejecutamos las funciones  para que nos responda si es escala
 let comprobar = document.getElementById('btn');
@@ -145,7 +143,7 @@ let  darkMode =()=> {
 // evento para cuando clickeamos el switch
 element.addEventListener("click", darkMode)
 
-// estos condicionales son por si ya seleccionamos el modo oscuro, lo recuerde
+// estos condicionales son por si ya seleccionamos el modo oscuro y lo recuerde
 if( localStorage.getItem("LightMode") == "Dark"){
   document.body.classList.add("darkMode")
   element.setAttribute("checked","")
@@ -162,8 +160,9 @@ let toStorage = [];
 //constructor para  guardar la escala facilmente 
 class escala{
   constructor(){
+    let last = (trueScales.length)-1
   this.nombre = document.getElementById("saveScale").value;
-  this.escala =consultaResult.toString();
+  this.escala =trueScales[last].toString();
    }
  }
 
@@ -175,6 +174,7 @@ class escala{
  savebtn.addEventListener("click",(e)=>{
   //evitamos que se refresque la pagina (aunque haga calor)
   e.preventDefault()
+  debugger;
   let  escalo= new escala( )
   toStorage.push(escalo)
   //pasamos todo lo que se cargue en el sesion a string para poder metero
@@ -187,7 +187,7 @@ let getUploadedScales = JSON.parse(sessionStorage.escalas)
 // ya que al cargar uno nuevo lo borra  y con += te agrega el anterior y va a tener datos repetidos
  let remember =getTextarea.value;
 
-  for( i=0;i< getUploadedScales.length; i++){
+  for( let i=0;i< getUploadedScales.length; i++){
     
      
      getTextarea.value = remember+( `\n${ getUploadedScales[i].nombre} = ${getUploadedScales[i].escala.replace(/,/g, "-")}`)
@@ -196,15 +196,39 @@ let getUploadedScales = JSON.parse(sessionStorage.escalas)
     }
  
  })
-// funcion para cerrar la alerta
- let close= ()=>{
-  alert.innerHTML =""
-     
- }
- alert.addEventListener("click",close)
 
 
 
 
+ const btn = document.getElementById("carreta");
+  btn.addEventListener("click",  (e) => {
+  e.preventDefault();
+  Tone.start();
+  const synth = new Tone.Synth().toDestination();
+  let now = Tone.now();
+  let last = (trueScales.length)-1
+  let getScale =trueScales[last]
+  debugger;
+  for(let i=0; i<= getScale.length;i++)
+  {
+    debugger;
+    synth.triggerAttackRelease( getScale[i], "8n", now+i)
+    
+  }
 
+});
+ 
+ let request =
+  async()=>
+  {
+    let output = "";
+    let request = await fetch("https://api.thecatapi.com/v1/images/search?limit=1&&api_key=live_q2ey7pOHnhFk6ZjCAjky4nfDmjjZmH3TucY2PVZmh7xuFrhpRvo24OWGwPOO3mr3")
+    .then(response =>  response.json())
+    .then( data  => output =(data[0]))
 
+    return (output);
+  }
+
+ let cont = await request();
+ console.log (cont.url)
+ 
