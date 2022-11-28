@@ -181,3 +181,9 @@ body {
   background: rgb(15, 15, 15);
  color:#fff;
  }
+.acomodar{
+ 
+  display: flex;
+  flex-direction: row;
+
+}

@@ -4,9 +4,14 @@ import  'https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js'
 
 // variable en la que se basa el algoritmo: comprobar mediante comparacion con este array si lo que se ingresa es una escala
 let allNotes = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
-let allNotes4 = ["C4","D4","E4","F4","G4","A4","B4"];
+
 //consulta result funciona como contenedor de la respuesta y como variable de control para hacer validaciones conta allNotes
 let consultaResult = "";
+
+//TrueScales Almacena las escalas que son verdaderas para poder hacer sonar la ultima cargada, 
+//el hecho de que sea un array es porque en un futuro quiero agregarle la funcionalidad de 
+//buscar escalas repetidas pero por ahora no es la finalidad ,
+// sino que quiero que solo valide si lo que entra es o  no una escala de 12 notas
 let trueScales =[];
 // truth es un tambien valor de control para contar la cantidad de notas no repetidas
 let truth = 0;
@@ -14,6 +19,34 @@ let truth = 0;
 let lie = 0;
 let count=1;
 
+
+let notScale ="no ha ingresado una escala";
+let isScale = "lo ingresado coincide con una escala musical";
+// creamos una alerta
+
+// alerta para cuando no hay escala
+ let alert = document.getElementById("forAlert");
+ 
+
+ // funcion para cerrar la alerta
+ let close= ()=>{
+  alert.innerHTML =""
+     
+ }
+ alert.addEventListener("click",close)
+
+let bars= (a,b)=>
+{
+  
+    if( a == "danger" )
+    {
+      alert.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+b+'<button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+    }
+    if(a == "success")
+    {
+      alert.innerHTML = '<div class="alert alert-primary alert-dismissible fade show" role="alert">'+b+'<button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+    }
+}
 // Obtiene las notas en cifrado americano, osea en letras mayusculas(toUpperCase) y las mete dentro del array de comprobacion 
 
 let obtenerDatosIngreso = document.getElementById('exampleInputEmail1');
@@ -29,33 +62,27 @@ let obtenerDatosIngreso = document.getElementById('exampleInputEmail1');
    if(allNotes.includes(consultaResult[i])){
     //console.log("contiene la nota")
       truth +=1
+      
     }
 
     else {
 
       //console.log("no contiene la nota")
        lie +=1;
-
+       
     } 
+    if (lie >0){
+      bars("danger","La escala contiene valores que no son")
+      break
+      
+    }
+    
 
 }
 
 };
 
-let notScale ="no ha ingresado una escala";
-let isScale = "lo ingresado coincide con una escala musical";
-// creamos una alerta
 
-// alerta para cuando no hay escala
- let alert = document.getElementById("forAlert");
- let alertBarDanger ="";
-
- // funcion para cerrar la alerta
- let close= ()=>{
-  alert.innerHTML =""
-     
- }
- alert.addEventListener("click",close)
 
  //Lo que quiero con esta funcion final es que, las funciones solo se ejecuten cuando yo las llame
 let notesMessage=()=>
@@ -68,11 +95,9 @@ let notesMessage=()=>
  countRepetitions()
   //Al final se hacen las validaciones en base a una variable que me dira si se ingresa o no una escala en base a la cantidad de valores 
  //Una escala musical minimamente consta de 5 notas, en caso de ingresar menos de 4(por ejemplo se ingresaron numeros o palabras,pero las letras fueron menores a 5 la respuesta va a ser no hay escala)
- let alertBarDanger = alert.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+notScale+'<button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
-
+ 
  if(consultaResult.length== 0){
-  alert.innerHTML = alertBarDanger
-
+  bars("danger",notScale)
 
   consultaResult ="";
   truth = 0
@@ -80,23 +105,24 @@ let notesMessage=()=>
  }
 
  else if (truth<5 ){
-   console.log(notScale);
-   alert.innerHTML = alertBarDanger
+   
+   bars("danger",notScale)
    consultaResult ="";
    truth = 0
   lie = 0
 }
 else if (truth >=5 ){
-  
-  // agregamos el banner 
-alert.innerHTML = '<div class="alert alert-primary alert-dismissible fade show" role="alert">'+isScale+'<button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+  bars("success",isScale)
+// agregamos el banner 
 let container =[]
-consultaResult.map(function(verd){
+consultaResult.map(function(verd)
+  {
   let valueRange =verd+"4";
   
   container.push(valueRange);
     
-})
+  })
+
 trueScales.push(container)
   consultaResult = "";
   truth = 0
@@ -174,7 +200,7 @@ class escala{
  savebtn.addEventListener("click",(e)=>{
   //evitamos que se refresque la pagina (aunque haga calor)
   e.preventDefault()
-  debugger;
+  
   let  escalo= new escala( )
   toStorage.push(escalo)
   //pasamos todo lo que se cargue en el sesion a string para poder metero
@@ -198,26 +224,6 @@ let getUploadedScales = JSON.parse(sessionStorage.escalas)
  })
 
 
-
-
- const btn = document.getElementById("carreta");
-  btn.addEventListener("click",  (e) => {
-  e.preventDefault();
-  Tone.start();
-  const synth = new Tone.Synth().toDestination();
-  let now = Tone.now();
-  let last = (trueScales.length)-1
-  let getScale =trueScales[last]
-  debugger;
-  for(let i=0; i<= getScale.length;i++)
-  {
-    debugger;
-    synth.triggerAttackRelease( getScale[i], "8n", now+i)
-    
-  }
-
-});
- 
  let request =
   async()=>
   {
@@ -229,6 +235,87 @@ let getUploadedScales = JSON.parse(sessionStorage.escalas)
     return (output);
   }
 
- let cont = await request();
- console.log (cont.url)
+ 
+ let makeSound = ()=>{
+  Tone.start();
+  const synth = new Tone.Synth().toDestination();
+  let now = Tone.now();
+  
+  let last = (trueScales.length)-1
+  let getScale =trueScales[last]
+  if( getScale != undefined)
+  {
+  
+  for(let i=0; i<= getScale.length;i++)
+  {
+    
+    synth.triggerAttackRelease( getScale[i], "8n", now+i)
+    
+  }
+}else
+ {
+  return ( bars("danger","Debe ingresar una escala/dato para validar"));
+ }
+ 
+}
+ 
+
+ const btn = document.getElementById("carreta");
+
+  btn.addEventListener("click",  (e) => {
+  e.preventDefault();
+   debugger;
+   
+ setTimeout(()=>{
+
+   let popo = async()=>{
+    let response = await request();
+     
+    return new Promise((resolve, reject) => {
+      if ( response == undefined)
+      {
+        reject ("reject")
+      }
+      if ( response != undefined)
+      {
+
+        resolve( "resolve")
+
+      }
+      
+    } )
+
+   }
+   
+   
+     
+       popo("resolve").then(async(data)=>{
+         let response = await request()
+        let  url = response.url;
+         let img = document.getElementById("respuesta");
+         debugger;
+         img.innerHTML="";
+         img.innerHTML = '<img src='+url+'></img><span> Si te gusta esta aplicacion <br>podes donar aqui <br> (proximamente)</span>'
+
+       })
+
+    },500)
+     
+    
+   
+    
+
+  
+  
+  makeSound()
+
+
+ 
+  
+  
+  let culo = "";
+  
+
+  
+});
  
