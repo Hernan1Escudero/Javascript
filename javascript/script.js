@@ -111,7 +111,7 @@ let notesMessage=()=>
    truth = 0
   lie = 0
 }
-else if (truth >=5 ){
+else if (truth >=5  && truth<= 12){
   bars("success",isScale)
 // agregamos el banner 
 let container =[]
@@ -313,7 +313,7 @@ let getUploadedScales = JSON.parse(sessionStorage.escalas)
  
   
   
-  let culo = "";
+  
   
 
   
